@@ -1,1 +1,2 @@
-# Control_Theory_and_Practice_Advanced_Course
+# EL2520 Control Theory and Practice Advanced Course
+# VT21
