@@ -1,0 +1,63 @@
+\documentclass[a4paper,12pt,oneside,onecolumn]{article} % Document type
+
+\usepackage[left=1.0in, right=1.0in, top=1.0in, bottom=1.0in]{geometry}
+
+\usepackage{fontspec}
+%\setmainfont{cmr12}
+\usepackage{amsmath,amssymb}   % Contains mathematical symbols
+\usepackage{xltxtra}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage[english]{babel}    % Language
+\usepackage[square,numbers]{natbib}     %Nice numbered citations
+\bibliographystyle{plainnat}            %Sorted bibliography
+\usepackage{float}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{lscape}
+\usepackage{graphicx}
+\usepackage{pstricks}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Filotheou}
+\rhead{EL2520}
+\chead{Classical Loop-shaping}
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+\cfoot{}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\title{
+	\vspace{3in}
+  EL$2520\ -$ Control Theory and Practice \\ Classical Loop-shaping}
+%\date{}
+
+\begin{document}
+	\maketitle
+  \vfill
+  \centering
+  Alexandros Filotheou \\ alefil@kth.se \\ 871108-5590
+  \vfill
+  \abstract{\input{./sections/abstract.tex}}
+
+  \newpage
+
+  \section{Basics}
+    \input{./sections/basics.tex}
+
+  \newpage
+
+  \section{Disturbance Attenuation}
+    \input{./sections/disturbance_attenuation.tex}
+
+  \newpage
+
+  \section{Conclusion}
+    \input{./sections/conclusion.tex}
+
+
+\end{document}

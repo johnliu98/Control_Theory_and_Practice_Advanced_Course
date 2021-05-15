@@ -1,0 +1,156 @@
+The process to be controlled is modelled by the transfer function $G(s)$:
+
+\begin{align*}
+  G(s) = \dfrac{3(1-s)}{(5s + 1)(10s + 1)}
+\end{align*}
+
+
+\begin{figure}[H]\centering
+  \scalebox{1}{\input{./figures/block_1.tex}}
+  \caption{Closed loop block diagram, where $F-$controller, $G-$system,
+    $r-$reference signal, $u-$control signal, $d-$disturbance signal, $y-$output
+    signal, $n-$measurement noise.}
+  \label{fig:block_1}
+\end{figure}
+
+
+\subsection{Exercise 1}
+
+In order for the closed-loop system to have
+
+\begin{itemize}
+  \item a phase margin of $30^{\circ}$,
+  \item a crossover frequency of $0.4$ rad/s, and
+  \item zero steady-state error for a step response in the reference signal
+\end{itemize}
+we consider a lead-lag controller of the form
+
+\begin{align*}
+  F(s) = K \cdot \dfrac{\tau_D s + 1}{\beta \tau_d s + 1} \cdot \dfrac{\tau_I s + 1}{\tau_I s + \gamma}
+\end{align*}
+whose $K, \tau_D, \beta, \tau_I$ and $\gamma$ coefficients shall be configured
+in such a way that the closed-loop system fulfills the above requirements.
+
+We first consider the third requirement: the error $E(s)$ is given by
+
+\begin{align*}
+  E(s) = R(s) - Y(s) = \dfrac{1}{1 + F(s)G(s)} R(s) = \dfrac{1}{1 + F(s)G(s)} \cdot \dfrac{1}{s}
+\end{align*}
+for a step reference. The steady state error will thus be
+
+\begin{align*}
+  e(\infty) = \displaystyle\lim_{t\to \infty} e(t) = \displaystyle\lim_{s\to 0} sE(s) = \dfrac{1}{1 + F(0)G(0)} = \dfrac{\gamma}{\gamma + 3K}
+\end{align*}
+For $e(\infty)$ to be zero, either $\gamma = 0$ or $K \to \infty$. Sensibly, we
+choose $\gamma = 0$.
+
+If we set $\tau_I = 1$, then the lag component becomes $F_g(s) = \dfrac{s+1}{s}$,
+and the phase margin of $F_g(s)G(s)$ is equal to
+$\phi_m^0 = 130.6013^{\circ} - 180^{\circ} = -49.3987^{\circ}$. Thus,
+$\beta, \tau_d$ and $K$ can be obtained by the following equations:
+
+\begin{itemize}
+  \item $\beta = \dfrac{1 - sin(30 - \phi_m^0)}{1 + sin(30 - \phi_m^0)} = 0.0086$
+  \item $\tau_D = \dfrac{1}{\omega_c\sqrt\beta} = \dfrac{1}{0.4\sqrt\beta} = 26.9459$
+  \item $K = \dfrac{\sqrt\beta}{|F_g(j\omega_c)G(j\omega_c)|} =
+    \dfrac{\sqrt\beta}{0.9436} = 0.0983$
+\end{itemize}
+
+Finally, now that the value of each coefficient has been identified, the
+controller is identified as
+
+\begin{align*}
+  F(s) = 0.0983 \cdot \dfrac{26.9459 s + 1}{0.2317 s + 1} \cdot \dfrac{s + 1}{s}
+\end{align*}
+
+We can verify that all three requirements have been met by plotting the bode
+diagram (figure \ref{fig:bode_1.1}) and the step response
+(figure \ref{fig:step_response_1.1}) for the initial, uncontrolled process $G(s)$
+and the final, controlled process $F(s)G(s)$.
+
+
+\begin{figure}[H]\centering
+  \scalebox{1}{\input{./figures/bode_1.1.tex}}
+  \caption{The frequency response of the initial, uncontrolled process
+    (\texttt{red}) and final, controlled process (\texttt{blue}).}
+  \label{fig:bode_1.1}
+\end{figure}
+
+\begin{figure}[H]\centering
+  \scalebox{0.8}{\input{./figures/step_response_1.1.tex}}
+  \caption{The step response of the initial, uncontrolled process
+    (\texttt{red}) and final, controlled process (\texttt{blue}).}
+  \label{fig:step_response_1.1}
+\end{figure}
+
+
+\subsection{Exercise 2}
+
+The bandwidth and the resonance peak of the closed-loop system, along with the
+rise time and the overshoot of a step response are found in table \ref{tbl:ex1.2}.
+
+\begin{table}[H] \centering
+    \begin{tabular}{|c|c|c|c|} \hline
+      $\omega_B$ $[rad/s]$ & $M_T$ $[dB]$ & $T_r$ $[sec]$ & $M$ $\%$  \\ \hline
+      $0.7474$             & $5.8247$     & $2.4583$      & $37.7922$ \\ \hline
+    \end{tabular}
+    \caption{Closed loop system characteristics for a phase margin of
+      $30^{\circ}$.}
+    \label{tbl:ex1.2}
+\end{table}
+
+\subsection{Exercise 3}
+
+If we now require a phase margin of $50^{\circ}$, and the crossover frequency
+to remain unchanged at $\omega_c = 0.4$ rad/s, then the $\tau_I$ coefficient
+needs to be increased. For $\tau_I = 2$, the lag component becomes
+$F_g(s) = \dfrac{2s + 1}{2s}$. In this case, the phase margin of $F_g(s)G(s)$
+is equal to $\phi_m^0 = 147.4597^{\circ} - 180^{\circ} = -32.5403^{\circ}$. Thus,
+$\beta, \tau_d$ and $K$, obtained the same way as before, become:
+
+\begin{itemize}
+  \item $\beta = \dfrac{1 - sin(50 - \phi_m^0)}{1 + sin(50 - \phi_m^0)} = 0.0042$
+  \item $\tau_D = \dfrac{1}{\omega_c\sqrt\beta} = \dfrac{1}{0.4\sqrt\beta} = 38.3493$
+  \item $K = \dfrac{\sqrt\beta}{|F_g(j\omega_c)G(j\omega_c)|} =
+    \dfrac{\sqrt\beta}{0.5610} = 0.1162$
+\end{itemize}
+
+Finally, now that the value of each coefficient has been identified, the
+controller is identified as
+
+\begin{align*}
+  F(s) = 0.1162 \cdot \dfrac{38.3493 s + 1}{0.1611 s + 1} \cdot \dfrac{2s + 1}{2s}
+\end{align*}
+
+We can verify that all three requirements have been met by plotting the bode
+diagram (figure \ref{fig:bode_1.3}) and the step response
+(figure \ref{fig:step_response_1.3}) for the initial, uncontrolled process $G(s)$
+and the final, controlled process $F(s)G(s)$.
+
+
+\begin{figure}[H]\centering
+  \scalebox{1}{\input{./figures/bode_1.3.tex}}
+  \caption{The frequency response of the initial, uncontrolled process
+    (\texttt{red}) and final, controlled process (\texttt{blue}).}
+  \label{fig:bode_1.3}
+\end{figure}
+
+\begin{figure}[H]\centering
+  \scalebox{0.8}{\input{./figures/step_response_1.3.tex}}
+  \caption{The step response of the initial, uncontrolled process
+    (\texttt{red}) and final, controlled process (\texttt{blue}).}
+  \label{fig:step_response_1.3}
+\end{figure}
+
+The bandwidth and the resonance peak of the closed-loop system, along with the
+rise time and the overshoot of a step response are found in table \ref{tbl:ex1.3}.
+
+\begin{table}[H] \centering
+    \begin{tabular}{|c|c|c|c|} \hline
+      $\omega_B$ $[rad/s]$ & $M_T$ $[dB]$ & $T_r$ $[sec]$ & $M$ $\%$  \\ \hline
+      $0.86$               & $1.4757$     & $2.7$       & $9.5649$ \\ \hline
+    \end{tabular}
+    \caption{Closed loop system characteristics for a phase margin of
+      $50^{\circ}$.}
+    \label{tbl:ex1.3}
+\end{table}

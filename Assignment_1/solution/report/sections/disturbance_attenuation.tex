@@ -1,0 +1,212 @@
+This exercise deals with the construction of a controller whose function is
+twofold: it tracks the reference signal and attenuates disturbances. The
+requirements of the system are such that:
+
+\begin{itemize}
+  \item The rise time for a step change in the reference signal is less than
+  $0.2$ s
+  \item The overshoot is less than $10\%$
+  \item For a step in the disturbance, $|y(t)| \leq 1\ \forall t$ and
+  $|y(t)| \leq 0.1$ for $t > 0.5$ s
+  \item Since the signals are scaled, the control signal obeys $|u(t)| \leq 1\
+  \forall t$
+\end{itemize}
+
+The transfer functions of the plant $G(s)$ and the disturbance $G_d(s)$ have
+been estimated to expressions \ref{eq:421_G} and \ref{eq:421_Gd} respectively.
+The target of this exercise is to construct the $F_r(s), F_y(s)$ transfer
+functions in such a way that all four of the above requirements are met.
+
+\begin{equation}
+  G(s) = \dfrac{20}{(s+1)((\dfrac{s}{20})^2 + \dfrac{s}{20} + 1)}
+  \label{eq:421_G}
+\end{equation}
+
+\begin{equation}
+  G_d(s) = \dfrac{10}{s+1}
+  \label{eq:421_Gd}
+\end{equation}
+
+\begin{figure}[H]\centering
+  \scalebox{0.8}{\input{./figures/block_2.tex}}
+  \caption{$F_r-$ prefilter, $F_y-$ feedback controller, $G-$ system, $G_d-$
+    disturbance dynamics, $r-$ reference signal, $u-$ control signal,
+    $d-$ disturbance signal, $y-$ measurement signal.}
+  \label{fig:block_2}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Exercice 1}
+
+Control action is needed at least at frequencies where $|G_d(j\omega)| > 1$;
+this expression is valid for all $\omega < \omega_c = 9.9473$ rad/s\footnote{
+this is the crossover frequency of $G_d$}. Hence, the minimal frequency interval
+where control is needed is $[0, 9.9473]$ rad/s. The controller $F_y(s)$ that
+shall be designed here will be such that
+$$L(s) = F_y(s)G(s) = \dfrac{\omega_c}{s}$$
+
+We will approach the design of $F_y$ in two ways: one where it $F_y$ is
+improper, and one where it is proper.
+
+\subsubsection{$F_y$ is improper}
+
+The first approach is the most simplistic one:
+$$F_y(s) = \dfrac{\omega_c}{sG(s)} = \dfrac{\omega_c (s+1)((\dfrac{s}{20})^2 + \dfrac{s}{20} + 1)}{20s}$$
+This means that $F_y$ is not proper since the number of its poles is less than
+the number of its zeros. Although this controller displays good disturbance
+attenuation (figure \ref{fig:bode_2.1_dy}), the amplitude of the output for a
+step disturbance does not meet the third requirement for $|y(t)| \leq 0.1$ for
+$t > 0.5$ s.
+
+\subsubsection{$F_y$ is proper}
+
+In order for $F_y$ to be proper, we add the minimum number of poles required,
+which is two, $p_1, p_2$, such that
+$$F_y(s) = \dfrac{\omega_c}{sG(s)} \cdot \dfrac{p_1 \cdot p_2}{(s+p_1)(s+p_2)}$$
+and in order for $L(s) \approx \dfrac{\omega_c}{s}$ we choose their location
+so that the frequency response of the closed-loop transfer function from $d$ to
+$y$ matches that of the previous case, where $F_y$ was improper. In this case,
+the two poles should be positioned away from $\omega_c$. Such a case was
+found to be valid experimentally for $p_1 = p_2 \geq 50\omega_c$. Thus, the
+poles were chosen as $p_1 = p_2 = 50\omega_c$. As is evident in figures
+\ref{fig:bode_2.1_dy} and \ref{fig:step_response_2.1}, the frequency response of
+the closed loop transfer function from $d$ to $y$ and the response of the output
+for a unit disturbance are equivalent in the frequency band where control action
+is appropriate.
+
+
+\begin{figure}[H]\centering
+  \scalebox{1}{\input{./figures/bode_2.1_L.tex}}
+  \caption{The frequency response of $L(s) = F_y(s)G(s)$ when $F_y$ is proper
+    (\texttt{red}) and when $F_y$ is improper (\texttt{blue}).
+    $p_1 = p_2 = 50\omega_c$}
+  \label{fig:bode_2.1_L}
+\end{figure}
+
+\begin{figure}[H]\centering
+  \scalebox{1}{\input{./figures/bode_2.1_dy.tex}}
+  \caption{The frequency response of the closed-loop transfer function from $d$
+    to $y$ when $F_y$ is proper (\texttt{red}) and when $F_y$ is improper
+    (\texttt{blue}). $p_1 = p_2 = 50\omega_c$}
+  \label{fig:bode_2.1_dy}
+\end{figure}
+
+\begin{figure}[H]\centering
+  \scalebox{0.8}{\input{./figures/step_response_2.1.tex}}
+  \caption{The response of the transfer function from $d$ to $y$ for a step in
+    the disturbance when $F_y$ is proper (\texttt{red}) and when $F_y$ is
+    (\texttt{blue}). $p_1 = p_2 = 50\omega_c$}
+  \label{fig:step_response_2.1}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Exercice 2}
+
+Since the previous controller did not exhibit adequate performance and did not
+meet the specified requirements, we now attempt to tune it in accordance to a
+desire to include integral action. We will again consider two possible designs.
+
+\subsubsection{$F_y$ is improper}
+
+We take $F_y$ to be of the form $F_y(s) = \frac{s+\omega_I}{s}G^{-1}(s)G_d(s)$
+as a starting point. Although $F_y$ is now improper, we can design $\omega_I$ so
+that our third requirement is met. Indeed, if we choose
+$\omega_I = 0.5 \omega_c$, then $|y(t)| \leq 0.1, \forall t \geq 0.5$s and,
+$\forall t: |y(t)| < 1$. This behaviour is illustrated in figure
+\ref{fig:step_response_2.2} in blue colour.
+
+
+\subsubsection{$F_y$ is proper}
+
+Since $F_y$ needs to be proper, we need to add two poles to it; hence $F_y$ is
+now formed as
+$$F_y(s) = \dfrac{s+\omega_I}{s} \cdot \dfrac{p_1 \cdot p_2}{(s+p_1)(s+p_2)} \cdot G^{-1}(s)G_d(s)$$
+The location of these poles should be such that when $G_d \approx 1$, e.g.
+for $\omega < \omega_c$, the controller should contain the inverse of the
+system. This means that $p_1,p_2$ should be larger than $\omega_c$. A choice of
+$p_1 = p_2 = 5\omega_c = 10\omega_I$ is appropriate since the poles are
+adequately far from the crossover frequency of the disturbance and the third
+requirement is satisfied, as can be seen in figure \ref{fig:step_response_2.2}
+in red colour.
+
+
+\begin{figure}[H]\centering
+  \scalebox{0.8}{\input{./figures/step_response_2.2.tex}}
+  \caption{The response of the transfer function from $d$ to $y$ for a step in
+    the disturbance when $F_y$ is proper (\texttt{red}) and improper
+    (\texttt{blue}). $\omega_I = 0.5 \omega_c$, $p_1 = p_2 = 5\omega_c$.}
+  \label{fig:step_response_2.2}
+\end{figure}
+
+
+\subsection{Exercises 3 and 4}
+
+In this subsection we try to bridge all the gaps and meet all specifications.
+In order to do so, first we add a lead component to the controller, so that
+$F_y$ is now given by
+$$F_y(s) = \dfrac{s+\omega_I}{s} \cdot K \dfrac{\tau_D s + 1}{\beta \tau_D s + 1}
+\cdot \dfrac{p_1 \cdot p_2}{(s+p_1)(s+p_2)} \cdot G^{-1}G_d$$
+Since there is no specification for the phase margin, we can set it to a
+sensible $30^{\circ}$ at a crossover frequency larger than the actual one, so
+that $\omega_c$ is well inside the control region, $\omega_c + 6 \approx 15$
+rad/s, for which $\beta = 0.6565, \tau_D = 0.0826$ and $K = 1.2557$.
+
+As for the prefilter, it is given by $F_r$:
+$$F_r = \dfrac{1}{\tau s + 1}$$
+Through a process of trial and error, if $\tau = 0.1$, then all requirements
+are met. Specifically, controllers $F_y, F_r$, with coefficients given in
+table \ref{tbl:ex34} make the system behave as follows:
+
+\begin{itemize}
+  \item The rise time for a step change in the reference signal is
+    $0.1561 < 0.2$s
+  \item The overshoot is $6.5716 < 10\%$
+  \item For a step in the disturbance, $|y(t)| \leq 1\ \forall t$ and
+  $|y(t)| \leq 0.1$ for $t > 0.445$s
+  \item The control signal obeys $|u(t)| \leq 0.511 \leq 1\ \forall t$
+\end{itemize}
+
+\begin{table}\centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    $\omega_c$ & $\omega_I$    & $K$       & $\tau_D$ & $\beta$   & $p_1 = p_2$ & $\tau$ \\ \hline
+    $9.9473$   & $0.5\omega_c$ & $1.2557$  & $0.0826$ & $0.6565$  & $5\omega_c$ & $0.1$  \\ \hline
+    \end{tabular}
+    \caption{The values of coefficients for $F_y(s)$ and $F_r(s)$.}
+    \label{tbl:ex34}
+\end{table}
+
+Figure \ref{fig:bode_2.3} shows the frequency response of the sensitivity $S$
+and complimentary sensitivity $T$ transfer functions,
+figure \ref{fig:step_response_2.3_r} illustrates the step response of the
+closed-loop system and figure \ref{fig:step_response_2.3_d} shows depicts the
+response of the transfer function from $d$ to $y$ for a step disturbance.
+
+\begin{figure}[H]\centering
+  \scalebox{0.8}{\input{./figures/bode_2.3.tex}}
+  \caption{The frequency responses of the sensitivity (\texttt{blue}) and
+  complimentary sensitivity function (\texttt{red}).}
+  \label{fig:bode_2.3}
+\end{figure}
+
+\noindent\makebox[\textwidth][c]{%
+\begin{minipage}{\linewidth}
+  \begin{minipage}{0.45\linewidth}
+    \begin{figure}[H]\centering
+      \scalebox{0.6}{\input{./figures/step_response_2.3_r.tex}}
+      \caption{The step response of the system.}
+      \label{fig:step_response_2.3_r}
+    \end{figure}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\linewidth}
+    \begin{figure}[H]\centering
+      \scalebox{0.6}{\input{./figures/step_response_2.3_d.tex}}
+      \caption{The response of the transfer function from $d$ to $y$ for a step
+        in the disturbance.}
+      \label{fig:step_response_2.3_d}
+    \end{figure}
+  \end{minipage}
+\end{minipage}
+}

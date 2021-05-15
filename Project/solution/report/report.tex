@@ -1,0 +1,103 @@
+\documentclass[a4paper,12pt,oneside,onecolumn]{article} % Document type
+
+\usepackage[left=1.0in, right=1.0in, top=1.0in, bottom=1.0in]{geometry}
+
+\usepackage{fontspec}
+\setmainfont{cmr12}
+\usepackage{amsmath,amssymb}   % Contains mathematical symbols
+\usepackage{xltxtra}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage[english]{babel}    % Language
+\usepackage[square,numbers]{natbib}     %Nice numbered citations
+\bibliographystyle{plainnat}            %Sorted bibliography
+\usepackage{float}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{lscape}
+\usepackage{graphicx}
+\usepackage{pstricks}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{lastpage}
+\usepackage{slantsc}
+\usepackage{lmodern}
+\usepackage{fancyhdr}
+\usepackage{cancel}
+\pagestyle{fancy}
+\rhead{}
+\chead{EL2520}
+\lhead{The four-tank process (E)}
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+\cfoot{}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\title{EL$2520 - $ Control Theory and Practice \\ Laboratory experiment: The four-tank process \\
+  Process E
+\vspace{10mm}
+}
+%\date{}
+
+\author{
+  Jatesada Borsub \\
+  jatesada@kth.se \\
+  900112-9759 \\
+  \and
+  Alexandros Filotheou  \\
+  alefil@kth.se \\
+  871108-5590
+	\and
+  Daniel Finimundi  \\
+  dfin@kth.se \\
+  910415-T312
+  \and
+  Fangjin Kuang \\
+  fangjin@kth.se \\
+  940710-6450 \\
+  \and
+  Roberto Sanchez-Rey \\
+  rosr@kth.se \\
+  840616-9139
+}
+
+\begin{document}
+  \vfill
+	\maketitle
+  \vspace{50mm}
+  \centering
+  \abstract{This report is a summary of the work involved in completing the
+    project assignment of Control Theory and Practice, Advanced Course. The
+    process to be controlled is the multivariable four-tank system, and, in
+    particular, two of its configurations: the minimum and the non-minimum phase
+    cases. At first we model the system in theory; then we perform experiments
+    in order to determine the values of parameters unknown to us. Finally, we
+    design controllers suitable for each system and evaluate their performance.}
+
+  \newpage
+
+  \section*{Modeling}
+    \input{./sections/01.modeling.tex}
+
+    \newpage
+
+  \section*{Manual control}
+    \input{./sections/02.manual_control.tex}
+
+    \newpage
+
+  \section*{Decentralized control}
+    \input{./sections/03.decentralized_control.tex}
+
+    \newpage
+
+  \section*{Robust control}
+    \input{./sections/04.robust_control.tex}
+
+    \newpage
+
+  \section*{Conclusions}
+    \input{./sections/05.conclusions.tex}
+
+\end{document}

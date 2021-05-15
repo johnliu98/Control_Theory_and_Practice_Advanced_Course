@@ -1,0 +1,71 @@
+% ------------------------------------------------------------------------------
+\subsection*{Exercise 4.2.1}
+
+Figure \ref{fig:mp_421} illustrates the response of the minimum phase system
+to step input changes and introduction of disturbances. Table \ref{tbl:mp_421}
+summarizes some important performance metrics under this experiment.
+
+\begin{figure}[H]\centering
+  \input{./figures/421_mp.tex}
+  \caption{Response of the minimum phase system while under control from a
+    controller derived with the Glover-McFarlae method. At time $t = 292$ a
+    step of $-5\%$ is introduced in $u_1$. At time $t = 504$ a cup of water is
+    poured into tank 1. At time $t = 688$ the extra outlet of tank 3 is opened.}
+  \label{fig:mp_421}
+\end{figure}
+
+\begin{table}[H]\centering
+    \begin{tabular}{l|l}
+    Step response rise time     & 14 \\
+    Overshoot                   & 0   \\
+    Recovery time from $w_1$    & 100 \\
+    Recovery time from $w_2$    & 120 \\
+    \end{tabular}
+    \caption{Rise time and overshoot of the step response, and recovery times
+      from the introduction of disturbances $w_1$ and $w_2$.}
+    \label{tbl:mp_421}
+\end{table}
+
+
+Figure \ref{fig:nmp_421} illustrates the response of the minimum phase system
+to step input changes and introduction of disturbances. Table \ref{tbl:nmp_421}
+summarizes some important performance metrics under this experiment.
+
+\begin{figure}[H]\centering
+  \input{./figures/421_nmp.tex}
+  \caption{Response of the non-minimum phase system while under control from a
+    controller derived with the Glover-McFarlae method. At time $t = 430$ a step
+    of $+5\%$ is introduced in $u_1$. At time $t = 628$ a cup of water is poured
+    into tank 1. At time $t = 925$ the extra outlet of tank 4 is opened.}
+  \label{fig:nmp_421}
+\end{figure}
+
+\begin{table}[H]\centering
+    \begin{tabular}{l|l}
+    Step response rise time     & 22 \\
+    Overshoot                   & $2\%$   \\
+    Recovery time from $w_1$    & 180 \\
+    Recovery time from $w_2$    & 200 \\
+    \end{tabular}
+    \caption{Rise time and overshoot of the step response, and recovery times
+      from the introduction of disturbances $w_1$ and $w_2$.}
+    \label{tbl:nmp_421}
+\end{table}
+
+
+% ------------------------------------------------------------------------------
+\subsection*{Exercise 4.2.2}
+The Glover-McFarlane controllers make each system respond quicker to steps
+introduced in the input, although the rejection of disturbances is somewhat
+slower, especially in the non-minimum phase case. However, on the whole,
+the amplitude of the oscillations caused by the introduction of disturbances
+are significantly decreased.
+
+
+% ------------------------------------------------------------------------------
+\subsection*{Exercise 4.2.3}
+Overall, we notice that the response of the non-minimum phase system is slower
+than that of the minimum-phase system, while the introduction of disturbances
+that involve tanks 3 and 4 are more influential on the former system. Overall,
+the non-minimum phase system is proved to be harder to control due to constraints
+relative to its nature.

@@ -1,0 +1,74 @@
+This and the next section are organised as follows: the system is driven to
+equilibrium by means of the controller, or, if it is not feasible (i.e. in the
+non-minimum phase case) close to the reference point. Then, the system is
+subjected to (a) a step change of $5\%$ in one of the inputs (marked with orange
+colour), (b) a disturbance $w_1$ which, physically, is the pouring of a cup of
+water directly in either tank 1 or 2 (marked with purple colour), and (c) a
+disturbance $w_2$ which, physically, is the opening of the extra outlet
+connected to tanks 3 or 4 (marked with green colour).
+
+
+% ------------------------------------------------------------------------------
+\subsection*{Exercise 4.1.1}
+
+Figure \ref{fig:mp_411} illustrates the response of the minimum phase system
+to step input changes and introduction of disturbances. Table \ref{tbl:mp_411}
+summarizes some important performance metrics under this experiment.
+
+\begin{figure}[H]\centering
+  \input{./figures/411_mp.tex}
+  \caption{Response of the minimum phase system while under control from a
+    decentralized controller. At time $t = 245$ a step of $-5\%$ is introduced
+    in $u_1$. At time $t = 360$ a cup of water is poured into tank 1. At time
+    $t = 487$ the extra outlet of tank 3 is opened.}
+  \label{fig:mp_411}
+\end{figure}
+
+\begin{table}[H]\centering
+    \begin{tabular}{l|l}
+    Step response rise time     & 16  \\
+    Overshoot                   & 0   \\
+    Recovery time from $w_1$    & 110 \\
+    Recovery time from $w_2$    & 80  \\
+    \end{tabular}
+    \caption{Rise time and overshoot of the step response, and recovery times
+      from the introduction of disturbances $w_1$ and $w_2$.}
+    \label{tbl:mp_411}
+\end{table}
+
+
+Figure \ref{fig:nmp_411} illustrates the response of the minimum phase system
+to step input changes and introduction of disturbances. Table \ref{tbl:nmp_411}
+summarizes some important performance metrics under this experiment.
+
+\begin{figure}[H]\centering
+  \input{./figures/411_nmp.tex}
+  \caption{Response of the non-minimum phase system while under control from a
+    decentralized controller. At time $t = 385$ a step of $+5\%$ is introduced
+    in $u_1$. At time $t = 519$ a cup of water is poured into tank 1. At time
+    $t = 870$ the extra outlet of tank 4 is opened.}
+  \label{fig:nmp_411}
+\end{figure}
+
+\begin{table}[H]\centering
+    \begin{tabular}{l|l}
+    Step response rise time     & 30 \\
+    Overshoot                   & 0   \\
+    Recovery time from $w_1$    & 100 \\
+    Recovery time from $w_2$    & 170 \\
+    \end{tabular}
+    \caption{Rise time and overshoot of the step response, and recovery times
+      from the introduction of disturbances $w_1$ and $w_2$.}
+    \label{tbl:nmp_411}
+\end{table}
+
+
+% ------------------------------------------------------------------------------
+\subsection*{Exercise 4.1.2}
+The non-minimum phase system reacts slower both in its step response and the
+attenuation of disturbances, although it takes both systems roughly the same
+time to recover from the introduction of $w_1$. Furthermore, the non-minimum
+phase case system is more sensitive to $w_2$, the disturbance introduced from
+the upper tanks, than the minimum phase system: not only it takes twice the
+time to recover from $w_2$, but the amplitude of the oscillation in the
+counterpart tank is significantly larger.

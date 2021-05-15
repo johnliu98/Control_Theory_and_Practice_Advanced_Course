@@ -1,0 +1,88 @@
+% ------------------------------------------------------------------------------
+\subsection*{Exercise 2.2.1}
+
+Table \ref{tbl:221} presents the experimental and calculated steady-state values
+for the height in each tank for both the minimum and non-minimum phase cases.
+It is evident that not all real values agree with their theoretically derived
+ones. This is reasonable: non-zero steady-state in this setting means that the
+amount of flow coming into a tank is equal to that coming out of it, during a
+given amount of time. This means that there are infinite stationary points,
+depending on the amount of water present in the tanks at time $t=0$, or at later
+points of time.
+
+\begin{table}[H]\centering
+  \begin{tabular}{c|c|c}
+    Height of tank i & minimum phase [cm] / calculated & non-minimum phase [cm] / calculated\\ \hline
+    1                & 17.5 / 26.545      & 28 / 27.0478           \\
+    2                & 22 / 27.0478       & 14 / 26.5450           \\
+    3                & 6.5 / 9.3885       & 12 / 10.8637            \\
+    4                & 7.5 / 8.7095       & 9.5 / 10.0779           \\
+    \end{tabular}
+    \caption{Steady-state water height in each tank, experimentally derived and
+      calculated from the system's model. Initially the tanks were
+      empty. The inputs were set to $0.5 u_{max} = 7.5 V$ and the system was
+      permitted to reach steady-state from these initial conditions.}
+    \label{tbl:221}
+\end{table}
+
+
+
+% ------------------------------------------------------------------------------
+\subsection*{Exercise 2.2.2}
+
+Figure \ref{fig:222} shows the step responses from when one input is ON for
+the minimum and non-minimum phase cases.
+
+\begin{figure}[ht]
+\begin{multicols}{2}
+\subfigure[]{
+  \scalebox{0.6}{\input{./figures/222_min_1.tex}}
+  \label{fig:}}
+\quad
+\subfigure[]{
+  \scalebox{0.6}{\input{./figures/222_min_2.tex}}
+  \label{fig:}}
+
+\subfigure[]{
+  \scalebox{0.6}{\input{./figures/222_nonmin_1.tex}}
+  \label{fig:}}
+\quad
+\subfigure[]{
+  \scalebox{0.6}{\input{./figures/222_nonmin_2.tex}}
+  \label{fig:}}
+
+\end{multicols}
+\caption{Step responses for the minimum phase case (left) and non-minumum phase
+  case (right). The input step was set to $0.5 u_{max} = 7.5V$. The vertical
+  axes show the height of water in each tank in percentage of its maximum height
+  value. Figures (a) and (c) correspond to input 1 being ON, while figures
+  (b) and (d) correspond to input 2 being ON.}
+\label{fig:222}
+\end{figure}
+
+The system is indeed coupled. In accordance to their respective RGA matrices,
+we can see that, in the minimum phase case, input $i$ drives tank $i$ but is
+coupled to output $j$, while, in the non-minimum phase case, input $i$ drives
+tank $j$ but is coupled to output $i$.
+
+
+% ------------------------------------------------------------------------------
+\subsection*{Exercise 2.2.3}
+
+We set the reference levels to $50\%$ of the maximum height for tanks 1 and 2.
+In the minimum phase case we found it easier to control the system, and the
+transient, in our experiment, was roughly 500 seconds. Contrary to this, the
+non-minimum phase case is much harder to control manually, if it is actually
+feasible to do so. In the end we could not reach our goal, however, in any case
+it is reasonable to assume that its transient would be more than in the
+minimum phase case.
+
+
+% ------------------------------------------------------------------------------
+\subsection*{Exercise 2.2.4}
+
+Among the most important differences between the minimum and non-minimum phase
+cases are the actual physical setup of the plant for each case, the fact that
+the latter is more difficult to control by hand, and more difficult to obtain
+an intuitive understanding due to the increased complexity of the intrinsics
+of the physical process itself.
