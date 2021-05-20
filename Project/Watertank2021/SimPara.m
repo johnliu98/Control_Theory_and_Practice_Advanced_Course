@@ -12,10 +12,10 @@ gam1 = 0.625;
 gam2 = 0.625;
 noise_level = 0;
 % Linearization point
-% h10 = 18; = 72%     % i cm (nedre vänstra tanken)
-% h20 = 18; = 72%     % i cm (nedre högra tanken)
-% h30 = 14; = 56%     % i cm (övre vänstra tanken)
-% h40 = 19; = 76%     % i cm (övre högra tanken)
+h10 = 18;% = 72%     % i cm (nedre vänstra tanken)
+h20 = 18;% = 72%     % i cm (nedre högra tanken)
+h30 = 14;% = 56%     % i cm (övre vänstra tanken)
+h40 = 19;% = 76%     % i cm (övre högra tanken)
 
 %% --- Nonminphase --- %
 % % Operating actuator proportional constants
@@ -46,3 +46,5 @@ A4 = 15.5179;   % cm^2
 kc = 0.2;       % V/cm
 delta1=0.125;
 delta2=0.125;
+% Gavitational constant
+g = 981;       % cm/s^2
