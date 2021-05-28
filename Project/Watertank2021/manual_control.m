@@ -36,6 +36,7 @@ G0 = evalfr(G, 0);
 
 RGA = G0 .* inv(G0)'
 
+%% --- Step reponse --- %
 figure, hold on
 step(G(1,1))
 step(G(1,2))
